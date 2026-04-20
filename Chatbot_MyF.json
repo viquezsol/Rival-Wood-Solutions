@@ -1,0 +1,904 @@
+{
+  "name": "Chatbot Web - Atención al Cliente",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rws-chatbot_1",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a5c824d5-232e-471e-a599-23e301b28875",
+      "name": "① Webhook - Recibir Mensaje",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2160,
+        304
+      ],
+      "webhookId": "chatbot-webhook-001"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f001",
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "f002",
+              "name": "mensaje",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "f003",
+              "name": "nombreCliente",
+              "value": "={{ $json.body.clientName }}",
+              "type": "string"
+            },
+            {
+              "id": "f005",
+              "name": "tipoCliente",
+              "value": "={{ $json.body.clientType }}",
+              "type": "string"
+            },
+            {
+              "id": "f004",
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "37b61316-4785-4814-81d3-95d8e063e765",
+      "name": "② Set - Normalizar Entrada",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1856,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const mensaje = $input.first().json.mensaje || '';\nconst nombreCliente = $input.first().json.nombreCliente;\nconst tipoCliente = $input.first().json.tipoCliente;\nconst sessionId = $input.first().json.sessionId;\nconst timestamp = $input.first().json.timestamp;\n\nconst esValido = mensaje.trim().length > 0 && mensaje.length <= 2000;\n\nconst intencion = /cotiza|precio|cuanto cuesta|presupuesto/i.test(mensaje)\n  ? 'cotizacion'\n  : /pedido|orden|estado|entrega/i.test(mensaje)\n  ? 'seguimiento'\n  : /cita|visita|asesor|llamada/i.test(mensaje)\n  ? 'agendar'\n  : /queja|defecto|problema|mal/i.test(mensaje)\n  ? 'queja'\n  : 'general';\n\nreturn [{\n  json: {\n    sessionId,\n    mensaje: mensaje.trim(),\n    nombreCliente,\n    tipoCliente,\n    timestamp,\n    esValido,\n    intencion\n  }\n}];"
+      },
+      "id": "7f5c8ef9-a89c-4834-8968-150008a17b53",
+      "name": "③ Code - Validar Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-001",
+              "leftValue": "={{ $json.esValido }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8d890a2f-c01b-4881-9995-a112b9586251",
+      "name": "④ IF - Mensaje Válido",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1184,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e001",
+              "name": "success",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "e002",
+              "name": "message",
+              "value": "Lo siento, tu mensaje no es válido. Por favor envía un texto entre 1 y 2000 caracteres.",
+              "type": "string"
+            },
+            {
+              "id": "e003",
+              "name": "errorCode",
+              "value": "MENSAJE_INVALIDO",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c66ff4aa-019a-4855-8c7d-30cd5c04f46f",
+      "name": "⑤ Set - Error Validación",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -832,
+        368
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ctx-001",
+              "name": "agentInput",
+              "value": "={{ $json.mensaje }}",
+              "type": "string"
+            },
+            {
+              "id": "ctx-002",
+              "name": "sessionId",
+              "value": "={{ $json.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "ctx-003",
+              "name": "nombreCliente",
+              "value": "={{ $json.nombreCliente }}",
+              "type": "string"
+            },
+            {
+              "id": "2d9e259e-c585-43b8-b021-871ec1f1fabd",
+              "name": "tipoCliente",
+              "value": "={{ $json.tipoCliente }}",
+              "type": "string"
+            },
+            {
+              "id": "15d84b1d-2c3a-4e30-85be-fcbd58b785c4",
+              "name": "intencion",
+              "value": "={{ $json.intencion }}",
+              "type": "string"
+            },
+            {
+              "id": "752dde5c-cc26-4e88-8e76-9adb2bf0dbcc",
+              "name": "timestamp",
+              "value": "={{ $json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ce0e0f5e-8593-436f-88ef-ab33f46f15d0",
+      "name": "⑥ Set - Preparar Contexto",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -576,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=={{ 'El cliente se llama ' + $json.nombreCliente + ' y es cliente tipo ' + $json.tipoCliente + '. Su intención es: ' + $json.intencion + '. Su mensaje es: ' + $json.agentInput }}",
+        "options": {
+          "systemMessage": "Eres el asistente virtual oficial de RWS (Rival Wood Solutions), \nempresa costarricense especializada en diseño y fabricación de \nmuebles a la medida. Operás en Costa Rica con fuerte presencia \nen Guanacaste.\n\nCuando el cliente inicie la conversación o salude, preséntate así:\n\"¡Hola! Soy el asistente virtual de RWS Rival Wood Solutions. \nEstoy aquí para ayudarle con información sobre nuestros muebles \na la medida, cotizaciones, estado de pedidos o agendar una cita \ncon un asesor. ¿En qué le puedo ayudar hoy?\"\n\nTu objetivo es ÚNICAMENTE:\n1. Responder consultas sobre catálogo, materiales y tipos de madera.\n2. Brindar precios orientativos de muebles a la medida.\n3. Ayudar a generar cotizaciones preliminares.\n4. Verificar estados de pedido.\n5. Agendar citas con asesores de RWS.\n6. Escalar a un agente humano cuando haya quejas o reclamos.\n\nSi el cliente pregunta algo que NO está relacionado con muebles, \nmadera, diseño de interiores o servicios de RWS, respondé \namablemente así:\n\"Lo siento, soy un asistente especializado en muebles a la medida \nde RWS y no estoy capacitado para responder ese tipo de consultas. \n¿Puedo ayudarle con algo relacionado a nuestros productos o servicios?\"\n\nInformación clave de RWS:\n- Tipos de madera: Pino, Cedro, Teca, Laurel\n- Precio base: ₡60,000 por m²\n- Multiplicadores por madera: Pino x1.0, Cedro x1.4, Teca x2.0, Laurel x1.6\n- Multiplicadores por acabado: Natural x1.0, Barniz x1.2, Pintura x1.15\n- Atiende mayoristas (distribuidores, constructoras) y minoristas (clientes finales)\n\nSiempre respondé en español, con tono profesional pero amigable.\nNunca inventés precios exactos ni fechas de entrega.\nSi no sabés algo, indicá que un asesor se comunicará a la brevedad.",
+          "maxIterations": 5,
+          "returnIntermediateSteps": false
+        }
+      },
+      "id": "d6ea5872-a2f5-4968-9df9-4e3a3515fee8",
+      "name": "⑦ AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        16,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "7b74a968-460c-4c2d-8655-109cc3018824",
+      "name": "⑨ Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        672
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cond-002",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": true,
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "740f3778-c2f8-47eb-8936-0cdd3ff23644",
+      "name": "⑩ IF - Tiene Respuesta",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        672,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2-001",
+              "name": "success",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "e2-002",
+              "name": "mensaje",
+              "value": "Lo sentimos, en este momento estamos teniendo dificultades técnicas. Un asesor de RWS se comunicará con usted a la brevedad.",
+              "type": "string"
+            },
+            {
+              "id": "e2-003",
+              "name": "errorCode",
+              "value": "AI_ERROR",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4b9a6b17-62a2-474b-a57e-0c41c0b6f946",
+      "name": "⑪ Set - Error de IA",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nreturn [{\n  json: {\n    success: true,\n    mensaje: data.output,\n    sessionId: data.sessionId,\n    nombreCliente: data.nombreCliente,\n    tipoCliente: data.tipoCliente,\n    intencion: data.intencion,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "4ea9f1d5-846f-442e-8db2-410da82475f7",
+      "name": "⑫ Code - Formatear Respuesta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "639733d8-bc04-48a3-b699-f97eab8b18b7",
+      "name": "⑬ Merge - Unir Rutas",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1808,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://jsonplaceholder.typicode.com/posts",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sessionId",
+              "value": "={{ $json.sessionId ?? 'anonimo' }}"
+            },
+            {
+              "name": "nombreCliente",
+              "value": "={{ $json.nombreCliente ?? 'Cliente' }}"
+            },
+            {
+              "name": "tipoCliente",
+              "value": "={{ $json.tipoCliente ?? 'minorista' }}"
+            },
+            {
+              "name": "intencion",
+              "value": "={{ $json.intencion ?? 'general' }}"
+            },
+            {
+              "name": "mensaje",
+              "value": "={{ $json.mensaje }}"
+            },
+            {
+              "name": "success",
+              "value": "={{ $json.success }}"
+            },
+            {
+              "name": "timestamp",
+              "value": "={{ $json.timestamp ?? new Date().toISOString() }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "d4f6ea21-11d0-4379-b38a-d014500048c1",
+      "name": "⑭ HTTP - Guardar en BD",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2192,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d8513de0-2a53-4e59-9b8b-a1a9469726bb",
+      "name": "⑮ Respond - Enviar al Cliente",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2544,
+        320
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        272,
+        672
+      ],
+      "id": "22760e51-d796-4385-ba4b-0b4b9e9b527c",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/todos/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        544,
+        656
+      ],
+      "id": "127c9a0b-eaa1-483c-af79-4810c693b0d3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "content": "Punto de entrada del chatbot. Recibe los mensajes \nenviados por los clientes desde el widget de la \npágina web de RWS mediante una solicitud HTTP POST. \nGenera la URL que conecta el sitio web con el flujo \nde automatización en n8n.",
+        "height": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2224,
+        464
+      ],
+      "typeVersion": 1,
+      "id": "84fbda11-9ab4-4b35-930b-876275a82ab4",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Extrae y organiza los datos del mensaje recibido. \nDefine variables limpias como sessionId, mensaje, \nnombreCliente, tipoCliente y timestamp que serán \nutilizadas por todos los nodos siguientes del flujo.",
+        "height": 176,
+        "color": "#898FFF"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1920,
+        96
+      ],
+      "typeVersion": 1,
+      "id": "48ece73a-78b8-4345-83b8-eb3171887cd8",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Valida que el mensaje del cliente no esté vacío y \nno supere los 2000 caracteres. Además detecta \nautomáticamente la intención del cliente mediante \npalabras clave: cotización, seguimiento de pedido, \nagendar cita o queja.",
+        "height": 192,
+        "color": "#FF9922"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1584,
+        464
+      ],
+      "typeVersion": 1,
+      "id": "bb3e7625-b3d4-4f2c-bb0d-a2299ff0b6df",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "Nodo de decisión que verifica si el mensaje es válido. \nSi es válido (True) continúa hacia el agente de IA. \nSi no es válido (False) redirige al nodo de error \nde validación para responder al cliente.",
+        "height": 176,
+        "color": "#33CC78"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1248,
+        112
+      ],
+      "typeVersion": 1,
+      "id": "b8e4492a-0a90-470d-a70a-d1ecca34ed42",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "Se activa cuando el mensaje del cliente está vacío \no supera los 2000 caracteres. Prepara un mensaje \nde error amigable para informarle al cliente que \nsu mensaje no es válido y solicitar que lo corrija.",
+        "height": 176,
+        "color": "#898FFF"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -912,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "3cafc62d-3338-4e0e-9fa0-74be8d3e04dc",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "Organiza y prepara los datos validados específicamente \npara enviárselos al agente de IA. Incluye el mensaje \nlimpio, sessionId, nombre, tipo de cliente e intención \ndetectada como contexto para el agente.",
+        "height": 176,
+        "color": "#898FFF"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -656,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "b1858d97-e0ca-4d12-8125-6dd026ced497",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Núcleo principal del chatbot. Agente de IA configurado \ncon el rol de asistente virtual de RWS. Recibe el \nmensaje del cliente, analiza la intención y genera \nuna respuesta personalizada sobre muebles a la medida. \nSolo responde temas relacionados con RWS. Cuenta con \ntres herramientas: calculadora de cotizaciones, \nconsulta de pedidos y memoria conversacional.",
+        "height": 304,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "921feb49-d8f9-421a-8802-85eaf7360f0b",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        672
+      ],
+      "id": "ffb24ea9-6cec-4d25-b798-b5ffff1d1148",
+      "name": "⑧ Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "aIv0gjYE0rCp8jTk",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Modelo de lenguaje grande (LLM) conectado al agente \nde IA. Utiliza Llama 3.3 70B de Groq para procesar \nel lenguaje natural del cliente y generar respuestas \ncoherentes, precisas y en español sobre los productos \ny servicios de RWS.",
+        "height": 192,
+        "color": "#F54F35"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -416,
+        800
+      ],
+      "typeVersion": 1,
+      "id": "0009d38a-87fa-4396-bc0f-4079beeb22e7",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "Memoria conversacional del agente. Guarda los últimos \n10 mensajes de cada conversación identificada por \nsessionId. Permite al agente recordar el contexto \nprevio de la conversación sin que el cliente tenga \nque repetir información ya mencionada.",
+        "height": 208,
+        "color": "#E0E0E0"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -112,
+        832
+      ],
+      "typeVersion": 1,
+      "id": "1013a75f-e73c-48b3-bfb5-1808b9498c9a",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "Herramienta del agente para calcular cotizaciones \npreliminares de muebles. Aplica la tabla de precios \nde RWS según tipo de madera, dimensiones y acabado \ncon un precio base de ₡60,000 por metro cuadrado.",
+        "height": 176,
+        "color": "#FFFAFA"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        208,
+        816
+      ],
+      "typeVersion": 1,
+      "id": "afc390bc-b148-4a6b-b4bf-15feb9ceafae",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "Herramienta del agente para consultar el estado de \npedidos de clientes en la base de datos de RWS. \nSe activa automáticamente cuando el agente detecta \nque el cliente pregunta por el estado de su orden.",
+        "height": 176,
+        "color": "#6964AA"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        528,
+        816
+      ],
+      "typeVersion": 1,
+      "id": "4cebcaf4-65cd-4317-af10-b1432f6128f5",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "Verifica que el agente de IA haya generado una \nrespuesta correctamente. Si tiene respuesta (True) \ncontinúa al formateo. Si está vacía (False) redirige \nal nodo de error de IA para informar al cliente.",
+        "height": 176,
+        "color": "#33CC78"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        144
+      ],
+      "typeVersion": 1,
+      "id": "79ea602c-2f35-4c3d-9ef4-3bec18fe6a5c",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "Se activa cuando el agente de IA no logra generar \nuna respuesta. Prepara un mensaje de error amigable \nindicando al cliente que hay dificultades técnicas \ny que un asesor de RWS se comunicará a la brevedad.",
+        "height": 176,
+        "color": "#898FFF"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1024,
+        560
+      ],
+      "typeVersion": 1,
+      "id": "2898180e-8e24-4ecd-aec4-0c1ebd538124",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "content": "Toma la respuesta generada por el agente de IA y \nla estructura en un formato JSON limpio y consistente \ncon los campos success, mensaje, sessionId y timestamp \nlistos para ser guardados y enviados al cliente.",
+        "height": 176,
+        "color": "#FF9922"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "2933166a-1b9e-4886-ab21-f4e769a6acaa",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "content": "Reúne las tres rutas posibles del flujo en una sola: \nerror de validación, respuesta exitosa del agente y \nerror de IA. Garantiza que todas las respuestas pasen \npor el mismo proceso de guardado y envío final.",
+        "height": 176,
+        "color": "#54B8C9"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1744,
+        496
+      ],
+      "typeVersion": 1,
+      "id": "95b0e8f3-05e4-41a2-97ab-8608117d559a",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "content": "Registra automáticamente cada conversación en Google \nSheets como lead de RWS. Guarda sessionId, nombre, \ntipo de cliente, intención, mensaje, resultado y \ntimestamp para seguimiento posterior del equipo de ventas.",
+        "height": 176,
+        "color": "#6964AA"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2112,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "1500b235-d5e6-435b-9ee4-5063dc235cfb",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "content": "Último nodo del flujo. Envía la respuesta final \ngenerada por el agente de vuelta al widget de la \npágina web de RWS en formato JSON con los campos \nsuccess, mensaje y timestamp para que el cliente \nla vea en el chat.",
+        "height": 192,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2496,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "f36bb498-7d2f-4415-bcbb-887c71a50854",
+      "name": "Sticky Note16"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "① Webhook - Recibir Mensaje": {
+      "main": [
+        [
+          {
+            "node": "② Set - Normalizar Entrada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "② Set - Normalizar Entrada": {
+      "main": [
+        [
+          {
+            "node": "③ Code - Validar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "③ Code - Validar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "④ IF - Mensaje Válido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "④ IF - Mensaje Válido": {
+      "main": [
+        [
+          {
+            "node": "⑥ Set - Preparar Contexto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⑤ Set - Error Validación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑤ Set - Error Validación": {
+      "main": [
+        [
+          {
+            "node": "⑬ Merge - Unir Rutas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑥ Set - Preparar Contexto": {
+      "main": [
+        [
+          {
+            "node": "⑦ AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑨ Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "⑦ AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑦ AI Agent": {
+      "main": [
+        [
+          {
+            "node": "⑩ IF - Tiene Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑩ IF - Tiene Respuesta": {
+      "main": [
+        [
+          {
+            "node": "⑫ Code - Formatear Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "⑪ Set - Error de IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑫ Code - Formatear Respuesta": {
+      "main": [
+        [
+          {
+            "node": "⑬ Merge - Unir Rutas",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "⑬ Merge - Unir Rutas": {
+      "main": [
+        [
+          {
+            "node": "⑭ HTTP - Guardar en BD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑭ HTTP - Guardar en BD": {
+      "main": [
+        [
+          {
+            "node": "⑮ Respond - Enviar al Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "⑦ AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "⑦ AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⑪ Set - Error de IA": {
+      "main": [
+        [
+          {
+            "node": "⑬ Merge - Unir Rutas",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "⑧ Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "⑦ AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "dc0340d2-cf58-4dfb-b077-790242e76d49",
+  "meta": {
+    "instanceId": "d1bc5d5146565c667e4de1d855f5f1cc0728afa5a78f1baaa5c6dd6616790fd5"
+  },
+  "id": "lnySz4nhoZcpzgS5",
+  "tags": []
+}
