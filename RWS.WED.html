@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="RWS - Rival Wood Solutions | Muebles a la medida en Costa Rica. Diseño, fabricación e instalación profesional." />
+  <title>RWS - Rival Wood Solutions | Muebles a la medida en Costa Rica</title>
+  <style>
+    :root{
+      --bg: #f5f8ff;
+      --surface: rgba(255,255,255,.72);
+      --surface-strong: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: rgba(15,23,42,.12);
+      --shadow: 0 12px 30px rgba(15,23,42,.12);
+      --shadow-soft: 0 10px 22px rgba(15,23,42,.08);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --accent: #1d4ed8;
+      --accent-2: #60a5fa;
+      --accent-3: #1e3a5f;
+      --focus: rgba(29,78,216,.18);
+      --max: 1120px;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(96,165,250,.18), transparent 55%),
+        radial-gradient(900px 520px at 90% 10%, rgba(29,78,216,.12), transparent 60%),
+        linear-gradient(180deg, #fff, var(--bg) 55%, #fff 120%);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    img{ max-width: 100%; display: block; }
+    .container{ width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    /* Navbar */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(245,248,255,.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner{
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .brand-mark{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background:
+        linear-gradient(145deg, rgba(96,165,250,.80), rgba(29,78,216,.95)),
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.35), transparent 65%);
+      box-shadow: 0 10px 20px rgba(29,78,216,.25);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.16);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+    .brand-text{
+      display: grid;
+      line-height: 1.05;
+    }
+    .brand-text strong{
+      font-size: 14px;
+      letter-spacing: .4px;
+    }
+    .brand-text span{
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links{
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-links a{
+      font-size: 14px;
+      color: var(--muted);
+      padding: 10px 10px;
+      border-radius: 12px;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .nav-links a:hover{
+      color: var(--ink);
+      background: rgba(96,165,250,.16);
+      transform: translateY(-1px);
+    }
+    .nav-cta{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: var(--ink);
+      color: #fff;
+      box-shadow: 0 14px 24px rgba(15,23,42,.16);
+      border: 1px solid rgba(255,255,255,.10);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      white-space: nowrap;
+    }
+    .nav-cta:hover{ transform: translateY(-1px); box-shadow: 0 18px 30px rgba(15,23,42,.22); }
+    .nav-cta svg{ width: 18px; height: 18px; }
+
+    .menu-btn{
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.7);
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+    }
+    .menu-btn svg{ width: 22px; height: 22px; }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      padding: 62px 0 36px;
+    }
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(29,78,216,.22);
+      background: rgba(96,165,250,.12);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .badge .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(29,78,216,.14);
+    }
+    h1{
+      margin: 16px 0 10px;
+      font-size: clamp(34px, 4vw, 56px);
+      letter-spacing: -.02em;
+      line-height: 1.05;
+    }
+    .lead{
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 56ch;
+    }
+    .hero-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.7);
+      box-shadow: var(--shadow-soft);
+      color: var(--ink);
+      font-weight: 650;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn-primary{
+      background: linear-gradient(145deg, rgba(96,165,250,.95), rgba(29,78,216,.96));
+      color: #fff;
+      border-color: rgba(255,255,255,.14);
+    }
+    .btn-primary:hover{ background: linear-gradient(145deg, rgba(96,165,250,1), rgba(29,78,216,1)); }
+    .btn svg{ width: 18px; height: 18px; }
+
+    .hero-card{
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.55));
+      border: 1px solid rgba(15,23,42,.12);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      min-height: 340px;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(420px 240px at 30% 25%, rgba(96,165,250,.60), transparent 60%),
+        radial-gradient(360px 220px at 75% 75%, rgba(29,78,216,.28), transparent 60%),
+        linear-gradient(135deg, rgba(15,23,42,.08), transparent 65%);
+      opacity: .9;
+      z-index: -1;
+    }
+    .hero-card-inner{
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+      height: 100%;
+    }
+    .stat-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: auto;
+    }
+    .stat{
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(15,23,42,.10);
+      box-shadow: 0 10px 18px rgba(15,23,42,.06);
+    }
+    .stat strong{ display:block; font-size: 18px; letter-spacing: -.01em; }
+    .stat span{ color: var(--muted); font-size: 13px; }
+    .hero-card-title{
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .hero-card-title strong{ font-size: 14px; letter-spacing: .3px; }
+    .chip{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.65);
+      color: var(--muted);
+    }
+    .wood-swatch{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .sw{
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,.12);
+      box-shadow: 0 10px 18px rgba(15,23,42,.06);
+    }
+    .sw:nth-child(1){ background: linear-gradient(145deg, #bfdbfe, #93c5fd); }
+    .sw:nth-child(2){ background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
+    .sw:nth-child(3){ background: linear-gradient(145deg, #1e3a5f, #0f172a); }
+
+    /* Sections */
+    section{ padding: 56px 0; }
+    .section-head{
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-head h2{
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -.01em;
+    }
+    .section-head p{
+      margin: 0;
+      color: var(--muted);
+      max-width: 68ch;
+      font-size: 14px;
+    }
+
+    .grid-3{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card{
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(15,23,42,.12);
+      box-shadow: var(--shadow-soft);
+      padding: 18px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      overflow: hidden;
+      position: relative;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: var(--shadow); }
+    .card .icon{
+      width: 44px; height: 44px;
+      border-radius: 16px;
+      display: grid; place-items: center;
+      background: rgba(96,165,250,.16);
+      border: 1px solid rgba(29,78,216,.20);
+      margin-bottom: 12px;
+    }
+    .card .icon svg{ width: 22px; height: 22px; color: var(--accent); }
+    .card h3{ margin: 0 0 8px; font-size: 16px; }
+    .card p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Projects */
+    .projects-grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    .project{
+      grid-column: span 4;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.76);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .project:hover{ transform: translateY(-2px); box-shadow: var(--shadow); }
+
+    /* ─── THUMBNAILS CON IMAGEN ─── */
+    .thumb{
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, rgba(96,165,250,.55), rgba(29,78,216,.40));
+    }
+    /* La imagen llena todo el thumb */
+    .thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s ease;
+    }
+    .project:hover .thumb img{
+      transform: scale(1.04);
+    }
+    /* Overlay sutil encima de la imagen */
+    .thumb::after{
+      content:"";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(15,23,42,.18) 100%);
+      pointer-events: none;
+    }
+    /* Si no hay imagen, se ve el degradado azul de fondo */
+    .thumb .no-img{
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(255,255,255,.7);
+      font-size: 13px;
+      text-align: center;
+      padding: 12px;
+    }
+    .thumb .no-img svg{ width: 32px; height: 32px; opacity: .7; }
+
+    .project-body{
+      padding: 14px 16px 16px;
+      display: grid;
+      gap: 8px;
+    }
+    .project-body strong{ font-size: 15px; }
+    .project-body span{ color: var(--muted); font-size: 13px; }
+    .tag-row{ display:flex; gap: 8px; flex-wrap: wrap; }
+    .tag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.62);
+      color: var(--muted);
+    }
+
+    /* About */
+    .about{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .about .card{
+      padding: 22px;
+    }
+    .about-list{
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .about-list li{
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .check{
+      width: 22px; height: 22px;
+      border-radius: 10px;
+      background: rgba(96,165,250,.16);
+      border: 1px solid rgba(29,78,216,.20);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+    .check svg{ width: 14px; height: 14px; }
+
+    /* Contact */
+    .contact{
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 16px;
+      align-items: start;
+    }
+    form{
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.76);
+      box-shadow: var(--shadow-soft);
+    }
+    label{ font-size: 13px; color: var(--muted); }
+    .field{
+      display: grid;
+      gap: 6px;
+    }
+    input, textarea{
+      width: 100%;
+      font: inherit;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,.14);
+      background: rgba(255,255,255,.8);
+      outline: none;
+      transition: box-shadow .18s ease, border-color .18s ease;
+    }
+    textarea{ min-height: 120px; resize: vertical; }
+    input:focus, textarea:focus{
+      border-color: rgba(29,78,216,.35);
+      box-shadow: 0 0 0 6px var(--focus);
+    }
+    .hint{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 34px 0 52px;
+      border-top: 1px solid var(--line);
+      background: rgba(245,248,255,.72);
+      backdrop-filter: blur(10px);
+    }
+    .footer-grid{
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .footer-brand{
+      display: grid;
+      gap: 10px;
+    }
+    .footer-brand strong{ letter-spacing: .2px; }
+    .footer-brand span, .footer-links a{ color: var(--muted); font-size: 14px; }
+    .footer-links{
+      display: grid;
+      justify-content: end;
+      gap: 10px;
+      text-align: right;
+    }
+    .social{
+      display: flex;
+      gap: 10px;
+      justify-content: end;
+      flex-wrap: wrap;
+    }
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.65);
+      box-shadow: 0 10px 18px rgba(15,23,42,.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      z-index: 90;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.85);
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    /* Chatbot widget */
+    .chatbot{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      display: grid;
+      gap: 10px;
+      justify-items: end;
+      user-select: none;
+    }
+    .chat-toggle{
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(145deg, rgba(96,165,250,.98), rgba(29,78,216,.96));
+      box-shadow: 0 18px 34px rgba(29,78,216,.28);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .chat-toggle:hover{ transform: translateY(-2px); box-shadow: 0 22px 40px rgba(29,78,216,.34); filter: saturate(1.05); }
+    .chat-toggle:active{ transform: translateY(-1px) scale(.98); }
+    .chat-toggle svg{ width: 24px; height: 24px; color: #fff; }
+
+    .chat-window{
+      width: min(360px, calc(100vw - 36px));
+      height: 440px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(15,23,42,.14);
+      box-shadow: 0 24px 60px rgba(15,23,42,.22);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      transform-origin: bottom right;
+      transform: translateY(12px) scale(.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      backdrop-filter: blur(10px);
+    }
+    .chatbot.open .chat-window{
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .chat-header{
+      padding: 12px 12px 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(245,248,255,.92), rgba(255,255,255,.70));
+      border-bottom: 1px solid rgba(15,23,42,.10);
+    }
+    .chat-title{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .chat-avatar{
+      width: 34px; height: 34px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(96,165,250,.80), rgba(29,78,216,.95));
+      border: 1px solid rgba(15,23,42,.10);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: .4px;
+      box-shadow: 0 12px 20px rgba(29,78,216,.16);
+      flex: 0 0 auto;
+    }
+    .chat-title strong{
+      font-size: 13px;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chat-title span{
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chat-close{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.7);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .chat-close:hover{ transform: translateY(-1px); box-shadow: 0 12px 18px rgba(15,23,42,.10); }
+    .chat-close svg{ width: 18px; height: 18px; color: var(--muted); }
+
+    .chat-messages{
+      padding: 14px;
+      overflow: auto;
+      display: grid;
+      gap: 10px;
+      scroll-behavior: smooth;
+      background:
+        radial-gradient(600px 220px at 20% 0%, rgba(96,165,250,.08), transparent 55%),
+        radial-gradient(500px 220px at 90% 10%, rgba(29,78,216,.06), transparent 65%),
+        rgba(255,255,255,.48);
+    }
+    .msg{
+      display: grid;
+      gap: 6px;
+      max-width: 88%;
+    }
+    .msg .bubble{
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.82);
+      box-shadow: 0 12px 18px rgba(15,23,42,.06);
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .msg .meta{ font-size: 11px; color: rgba(71,85,105,.85); }
+    .msg.user{ justify-self: end; }
+    .msg.user .bubble{
+      background: linear-gradient(145deg, rgba(96,165,250,.32), rgba(29,78,216,.22));
+      border-color: rgba(29,78,216,.22);
+    }
+    .msg.bot{ justify-self: start; }
+    .msg.bot .bubble{ background: rgba(255,255,255,.86); }
+    .msg.typing .bubble{
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .dots{
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      height: 14px;
+    }
+    .dots i{
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: rgba(71,85,105,.8);
+      animation: bounce 1.05s infinite ease-in-out;
+    }
+    .dots i:nth-child(2){ animation-delay: .12s; opacity: .9; }
+    .dots i:nth-child(3){ animation-delay: .24s; opacity: .8; }
+    @keyframes bounce{
+      0%, 80%, 100%{ transform: translateY(0); }
+      40%{ transform: translateY(-4px); }
+    }
+
+    .chat-input{
+      padding: 12px;
+      border-top: 1px solid rgba(15,23,42,.10);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      background: rgba(245,248,255,.85);
+    }
+    .chat-input input{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(15,23,42,.14);
+      background: rgba(255,255,255,.84);
+    }
+    .send{
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: var(--ink);
+      color: #fff;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      box-shadow: 0 14px 24px rgba(15,23,42,.16);
+    }
+    .send:hover{ transform: translateY(-1px); box-shadow: 0 18px 28px rgba(15,23,42,.22); }
+    .send:disabled{ opacity: .55; cursor: not-allowed; transform: none; box-shadow: 0 10px 18px rgba(15,23,42,.12); }
+    .send svg{ width: 18px; height: 18px; }
+
+    /* Mobile */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-card{ min-height: 300px; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .projects-grid{ grid-template-columns: repeat(12, 1fr); }
+      .project{ grid-column: span 6; }
+      .about, .contact{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+      .footer-links{ justify-content: start; text-align: left; }
+      .social{ justify-content: start; }
+      .nav-links{ display: none; }
+      .menu-btn{ display: grid; place-items: center; }
+    }
+    @media (max-width: 520px){
+      .project{ grid-column: span 12; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" aria-label="Navegación principal">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">
+          <div class="brand-mark" aria-hidden="true">RWS</div>
+          <div class="brand-text">
+            <strong>RWS</strong>
+            <span>Rival Wood Solutions</span>
+          </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Secciones">
+          <a href="#inicio">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <a class="nav-cta" href="#contacto" aria-label="Solicitar cotización">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" opacity=".8"/>
+          </svg>
+          Solicitar Cotización
+        </a>
+      </div>
+
+      <div id="mobileMenu" style="display:none; padding: 0 0 14px;">
+        <div style="display:grid; gap:10px; padding-top: 10px;">
+          <a class="btn" href="#inicio">Inicio</a>
+          <a class="btn" href="#servicios">Servicios</a>
+          <a class="btn" href="#proyectos">Proyectos</a>
+          <a class="btn" href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="badge">
+              <span class="dot" aria-hidden="true"></span>
+              Hecho a medida • Diseño, fabricación e instalación
+            </div>
+            <h1>Muebles a la medida en Costa Rica</h1>
+            <p class="lead">
+              En <strong>RWS - Rival Wood Solutions</strong> creamos soluciones en madera con acabados profesionales.
+              Desde cocinas y closets hasta muebles para oficina y proyectos comerciales: medimos, diseñamos y construimos para tu espacio.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#contacto">
+                Solicitar Cotización
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="m13 6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn" href="#proyectos">
+                Ver proyectos
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="m6 13 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-label="Resumen de capacidades">
+            <div class="hero-card-inner">
+              <div class="hero-card-title">
+                <strong>Acabados que se sienten premium</strong>
+                <span class="chip">Garantía de detalle</span>
+              </div>
+              <div class="wood-swatch" aria-hidden="true">
+                <div class="sw"></div>
+                <div class="sw"></div>
+                <div class="sw"></div>
+              </div>
+              <div class="stat-grid">
+                <div class="stat">
+                  <strong>Diseño</strong>
+                  <span>Personalizado para tu espacio</span>
+                </div>
+                <div class="stat">
+                  <strong>Materiales</strong>
+                  <span>Seleccionados por durabilidad</span>
+                </div>
+                <div class="stat">
+                  <strong>Instalación</strong>
+                  <span>Precisión y limpieza</span>
+                </div>
+                <div class="stat">
+                  <strong>Entrega</strong>
+                  <span>Comunicación clara del avance</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Servicios</h2>
+            <p>Un proceso simple y profesional, desde el concepto hasta la instalación final.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 16 16 6l2 2-10 10H6v-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Diseño personalizado</h3>
+            <p>Levantamiento de medidas, propuesta funcional y estética, y selección de acabados para que tu mueble encaje perfecto.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 12V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 12v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Fabricación de muebles</h3>
+            <p>Carpintería fina con enfoque en durabilidad, herrajes de calidad y uniones precisas para resultados consistentes.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7H7v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M17 15v2h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z" stroke="currentColor" stroke-width="2" opacity=".7"/>
+              </svg>
+            </div>
+            <h3>Instalación profesional</h3>
+            <p>Montaje y nivelación, ajustes finales y entrega limpia. Cuidamos tu espacio y te dejamos todo listo para usar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Proyectos</h2>
+            <p>Galería de estilos y soluciones.</p>
+          </div>
+        </div>
+
+        <div class="projects-grid" role="list">
+
+          <!-- PROYECTO 1 ─────────────────────────────────────────────────── -->
+          <!-- Para agregar tu foto: cambiá src="" por src="ruta/de/tu/foto.jpg" -->
+          <!-- Si no ponés src, se muestra el fondo azul con el ícono de placeholder -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="cocinamoderna.jpeg" alt="Cocina moderna" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Cocina moderna</strong>
+              <span>Diseño limpio con almacenamiento inteligente.</span>
+              <div class="tag-row">
+                <span class="tag">Cocina</span>
+                <span class="tag">Melamina</span>
+                <span class="tag">Herrajes premium</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 2 -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="closetpremium.jpeg" alt="Closet premium" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Closet premium</strong>
+              <span>Distribución a medida, iluminación y detalles.</span>
+              <div class="tag-row">
+                <span class="tag">Closet</span>
+                <span class="tag">Organización</span>
+                <span class="tag">Acabado mate</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 3 -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="oficinaejecutiva.jpeg" alt="Oficina ejecutiva" style="object-position: top;" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Oficina ejecutiva</strong>
+              <span>Superficies resistentes y estética corporativa.</span>
+              <div class="tag-row">
+                <span class="tag">Oficina</span>
+                <span class="tag">Madera</span>
+                <span class="tag">Diseño sobrio</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 4 -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="muebleparaTV.jpeg" alt="Mueble para TV" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Mueble para TV</strong>
+              <span>Gestión de cables, nichos y líneas suaves.</span>
+              <div class="tag-row">
+                <span class="tag">Sala</span>
+                <span class="tag">Minimal</span>
+                <span class="tag">Detalles</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 5 -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="islacentral.jpeg" alt="Isla central" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Isla central</strong>
+              <span>Funcionalidad extra para cocinar y compartir.</span>
+              <div class="tag-row">
+                <span class="tag">Cocina</span>
+                <span class="tag">Cubierta</span>
+                <span class="tag">Almacenaje</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 6 -->
+          <article class="project" role="listitem">
+            <div class="thumb" aria-hidden="true">
+              <img src="recepcioncomercial.jpeg" alt="Recepción comercial" onload="this.closest('.thumb').querySelector('.no-img').style.display='none'"  onerror="this.style.display='none'" />
+            </div>
+            <div class="project-body">
+              <strong>Recepción comercial</strong>
+              <span>Primera impresión sólida y profesional.</span>
+              <div class="tag-row">
+                <span class="tag">Comercial</span>
+                <span class="tag">Durable</span>
+                <span class="tag">Marca</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="nosotros">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Sobre RWS</h2>
+            <p>Carpintería hecha con criterio: buena estructura, buenos materiales y una instalación impecable.</p>
+          </div>
+        </div>
+        <div class="about">
+          <article class="card">
+            <h3 style="margin:0 0 10px;">Calidad que se nota</h3>
+            <p style="margin:0; color: var(--muted); font-size: 14px;">
+              En <strong>RWS - Rival Wood Solutions</strong> combinamos diseño funcional con un enfoque artesanal. Trabajamos para que
+              cada proyecto se vea bien hoy y se mantenga sólido por años: desde el corte y ensamblaje hasta los detalles finales.
+            </p>
+            <ul class="about-list">
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Materiales seleccionados y acabados consistentes.
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Medidas reales, soluciones pensadas para tu rutina.
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Instalación profesional con ajustes finos.
+              </li>
+            </ul>
+          </article>
+          <aside class="card">
+            <h3 style="margin:0 0 10px;">Cómo trabajamos</h3>
+            <p style="margin:0; color: var(--muted); font-size: 14px;">
+              Te guiamos con claridad en cada paso: levantamiento, diseño, fabricación y entrega.
+              Si quieres, también puedes preguntarle al asistente (botón de chat) por servicios, tipos de proyectos y recomendaciones.
+            </p>
+            <div style="display:grid; gap:10px; margin-top: 14px;">
+              <div class="stat" style="padding: 14px;">
+                <strong>1) Cotización</strong>
+                <span>Cuéntanos el espacio y el objetivo.</span>
+              </div>
+              <div class="stat" style="padding: 14px;">
+                <strong>2) Diseño</strong>
+                <span>Propuesta y ajustes según necesidades.</span>
+              </div>
+              <div class="stat" style="padding: 14px;">
+                <strong>3) Fabricación e instalación</strong>
+                <span>Entrega con acabados profesionales.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contacto</h2>
+            <p>Envíanos tu idea. Responderemos con preguntas clave para cotizar con precisión.</p>
+          </div>
+        </div>
+        <div class="contact">
+          <article class="card" style="padding: 22px;">
+            <h3 style="margin:0 0 10px;">Solicita tu cotización</h3>
+            <p class="hint">
+              Incluye medidas aproximadas, tipo de mueble y acabados deseados. Si aún no lo tienes claro, usa el chat para orientarte.
+            </p>
+            <div style="display:grid; gap: 10px; margin-top: 14px;">
+              <div class="stat" style="padding: 14px;">
+                <strong>Ubicación</strong>
+                <span>Costa Rica</span>
+              </div>
+              <div class="stat" style="padding: 14px;">
+                <strong>Horario</strong>
+                <span>Lun–Sáb • 8:00 a.m. – 6:00 p.m.</span>
+              </div>
+              <div class="stat" style="padding: 14px;">
+                <strong>Canales</strong>
+                <span>Formulario • Redes (demo) • Chatbot</span>
+              </div>
+            </div>
+          </article>
+          <form id="contactForm">
+            <div class="field">
+              <label for="name">Nombre</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" required />
+            </div>
+            <div class="field">
+              <label for="email">Correo</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="tu@correo.com" required />
+            </div>
+            <div class="field">
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">
+              Enviar mensaje
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+              </svg>
+            </button>
+            <p class="hint" style="margin-top: 2px;">
+              Nota: este formulario es solo demostración (sin backend). Para una integración real, conecta tu endpoint.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>RWS - Rival Wood Solutions</strong>
+          <span>Muebles a la medida • Calidad, materiales y buena mano de obra.</span>
+          <span><strong style="color: var(--ink); font-weight: 650;">Ubicación:</strong> Costa Rica</span>
+        </div>
+        <div class="footer-links">
+          <div class="social" aria-label="Redes sociales">
+            <a class="pill" href="#" aria-label="Instagram (demo)">Instagram</a>
+            <a class="pill" href="#" aria-label="Facebook (demo)">Facebook</a>
+            <a class="pill" href="#" aria-label="WhatsApp (demo)">WhatsApp</a>
+          </div>
+          <span>© <span id="year"></span> RWS. Todos los derechos reservados.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Chatbot widget -->
+  <div class="chatbot" id="chatbot" aria-label="Chatbot RWS">
+    <div class="chat-window" role="dialog" aria-modal="false" aria-label="Ventana de chat">
+      <div class="chat-header">
+        <div class="chat-title">
+          <div class="chat-avatar" aria-hidden="true">R</div>
+          <div style="min-width: 0;">
+            <strong>Asistente RWS</strong>
+            <span id="chatSub">Consultas sobre muebles a la medida</span>
+          </div>
+        </div>
+        <button class="chat-close" id="chatClose" aria-label="Cerrar chat">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages" aria-label="Mensajes">
+        <div class="msg bot">
+          <div class="bubble">Hola, soy el asistente de RWS. ¿Qué tipo de mueble estás buscando (cocina, closet, oficina, baño, etc.)?</div>
+          <div class="meta">RWS • ahora</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <input id="chatInput" type="text" placeholder="Escribe tu mensaje..." autocomplete="off" />
+        <button class="send" id="chatSend" aria-label="Enviar mensaje">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button class="chat-toggle" id="chatToggle" aria-label="Abrir chat" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M21 12a8 8 0 0 1-8 8H8l-5 3 1.5-5.2A8 8 0 1 1 21 12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M8 12h.01M12 12h.01M16 12h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      const DEFAULT_WEBHOOK_URL = "http://localhost:5678/webhook/rws-chatbot";
+      const $ = (sel) => document.querySelector(sel);
+
+      function getWebhookUrl() {
+        // 1) Permite setear la URL desde fuera (ideal para producción sin tocar el HTML)
+        //    window.RWS_CHAT_WEBHOOK_URL = "https://tu-dominio/webhook/...."
+        const fromGlobal = (typeof window !== "undefined" && window.RWS_CHAT_WEBHOOK_URL) ? String(window.RWS_CHAT_WEBHOOK_URL) : "";
+        if (fromGlobal.trim()) return fromGlobal.trim();
+
+        // 2) Persistencia local (abrí consola y ejecutá: localStorage.setItem("rws_chat_webhook_url","https://...")
+        const fromStorage = localStorage.getItem("rws_chat_webhook_url");
+        if (fromStorage && String(fromStorage).trim()) return String(fromStorage).trim();
+
+        // 3) Fallback de desarrollo
+        return DEFAULT_WEBHOOK_URL;
+      }
+
+      const yearEl = $("#year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      // Mobile menu
+      const menuBtn = $("#menuBtn");
+      const mobileMenu = $("#mobileMenu");
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          const isOpen = mobileMenu.style.display !== "none";
+          mobileMenu.style.display = isOpen ? "none" : "block";
+          menuBtn.setAttribute("aria-expanded", String(!isOpen));
+        });
+        mobileMenu.addEventListener("click", (e) => {
+          const a = e.target.closest("a");
+          if (!a) return;
+          mobileMenu.style.display = "none";
+          menuBtn.setAttribute("aria-expanded", "false");
+        });
+      }
+
+      // Smooth scroll
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const href = a.getAttribute("href");
+        if (!href || href === "#") return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      // Toast
+      const toastEl = $("#toast");
+      let toastTimer = null;
+      function toast(message) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2800);
+      }
+
+      // Contact form (demo)
+      const contactForm = $("#contactForm");
+      if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          toast("Mensaje enviado (demo). Conecta tu backend para hacerlo real.");
+          contactForm.reset();
+        });
+      }
+
+      // Chatbot
+      const chatbot = $("#chatbot");
+      const chatToggle = $("#chatToggle");
+      const chatClose = $("#chatClose");
+      const chatMessages = $("#chatMessages");
+      const chatInput = $("#chatInput");
+      const chatSend = $("#chatSend");
+
+      function getSessionId() {
+        const key = "rws_chat_session_id";
+        let sid = localStorage.getItem(key);
+        if (!sid) {
+          sid = "rws_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+          localStorage.setItem(key, sid);
+        }
+        return sid;
+      }
+
+      function setChatOpen(open) {
+        if (!chatbot || !chatToggle) return;
+        chatbot.classList.toggle("open", open);
+        chatToggle.setAttribute("aria-expanded", String(open));
+        chatToggle.setAttribute("aria-label", open ? "Cerrar chat" : "Abrir chat");
+        if (open) setTimeout(() => { chatInput && chatInput.focus(); scrollToBottom(); }, 60);
+      }
+
+      function scrollToBottom() {
+        if (!chatMessages) return;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function nowLabel() {
+        const d = new Date();
+        return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+      }
+
+      function parseMarkdown(text) {
+        return text
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          .replace(/\n/g, '<br/>');
+      }
+
+      function addMessage({ role, text, meta, markdown }) {
+        if (!chatMessages) return;
+        const wrap = document.createElement("div");
+        wrap.className = "msg " + (role === "user" ? "user" : "bot");
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        if (markdown) {
+          bubble.innerHTML = parseMarkdown(text);
+        } else {
+          bubble.textContent = text;
+        }
+        const m = document.createElement("div");
+        m.className = "meta";
+        m.textContent = meta || (role === "user" ? ("Tú • " + nowLabel()) : ("RWS • " + nowLabel()));
+        wrap.appendChild(bubble);
+        wrap.appendChild(m);
+        chatMessages.appendChild(wrap);
+        scrollToBottom();
+      }
+
+      function addTyping() {
+        if (!chatMessages) return null;
+        const wrap = document.createElement("div");
+        wrap.className = "msg bot typing";
+        wrap.dataset.typing = "1";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        const label = document.createElement("span");
+        label.textContent = "Escribiendo";
+        label.style.color = "rgba(71,85,105,.95)";
+        const dots = document.createElement("span");
+        dots.className = "dots";
+        dots.setAttribute("aria-hidden", "true");
+        dots.innerHTML = "<i></i><i></i><i></i>";
+        bubble.appendChild(label);
+        bubble.appendChild(dots);
+        wrap.appendChild(bubble);
+        chatMessages.appendChild(wrap);
+        scrollToBottom();
+        return wrap;
+      }
+
+      function removeTyping(node) { if (node) node.remove(); }
+
+      function pickReply(data) {
+        // Soporta varios formatos comunes de salida desde n8n
+        // - { output: "..." }
+        // - { text: "..." } / { reply: "..." } / { message: "..." }
+        // - [{ output: "..." }] (si el webhook devuelve un array)
+        // - { data: { output: "..." } }
+        const d = Array.isArray(data) ? data[0] : data;
+        if (!d || typeof d !== "object") return null;
+        if (typeof d.output === "string") return d.output;
+        if (typeof d.text === "string") return d.text;
+        if (typeof d.reply === "string") return d.reply;
+        if (typeof d.message === "string") return d.message;
+        if (typeof d.mensaje === "string") return d.mensaje;
+        if (d.data && typeof d.data === "object") {
+          if (typeof d.data.output === "string") return d.data.output;
+          if (typeof d.data.text === "string") return d.data.text;
+          if (typeof d.data.reply === "string") return d.data.reply;
+          if (typeof d.data.message === "string") return d.data.message;
+          if (typeof d.data.mensaje === "string") return d.data.mensaje;
+        }
+        return null;
+      }
+
+      async function sendToWebhook(message) {
+        const WEBHOOK_URL = getWebhookUrl();
+        // IMPORTANTE: este payload coincide con tu workflow de n8n
+        // (nodo "② Set - Normalizar Entrada" usa $json.body.message/clientName/clientType/sessionId)
+        const payload = {
+          sessionId: getSessionId(),
+          message,
+          clientName: "Cliente Web",
+          clientType: "minorista",
+        };
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          throw new Error("HTTP " + res.status + (txt ? (": " + txt.slice(0, 160)) : ""));
+        }
+        // Algunos webhooks responden 204 o body vacío: evitamos romper al parsear JSON.
+        if (res.status === 204) return {};
+
+        const contentType = (res.headers.get("content-type") || "").toLowerCase();
+        const raw = await res.text().catch(() => "");
+        if (!raw || !raw.trim()) return {};
+
+        // Si parece JSON, intentamos parsear; si falla, lo tratamos como texto plano.
+        const looksJson = contentType.includes("application/json") || raw.trim().startsWith("{") || raw.trim().startsWith("[");
+        if (looksJson) {
+          try { return JSON.parse(raw); }
+          catch (_) { /* cae a texto */ }
+        }
+        return { output: raw };
+      }
+
+      async function handleSend() {
+        if (!chatInput || !chatSend) return;
+        const text = (chatInput.value || "").trim();
+        if (!text) return;
+        addMessage({ role: "user", text });
+        chatInput.value = "";
+        chatSend.disabled = true;
+        const typingNode = addTyping();
+        try {
+          const data = await sendToWebhook(text);
+          console.log("Respuesta n8n:", JSON.stringify(data));
+          const reply = pickReply(data);
+          removeTyping(typingNode);
+          if (!reply) {
+            addMessage({
+              role: "bot",
+              text:
+                "Recibí una respuesta del webhook, pero no encontré un campo de texto (probé: output/text/reply/message).\n" +
+                "Ajusta tu workflow para devolver JSON como { \"output\": \"...\" }.\n\n" +
+                "Tip: también puedes ver el objeto completo en la consola (F12).",
+              meta: "RWS • sistema"
+            });
+            return;
+          }
+          addMessage({ role: "bot", text: reply, markdown: true });
+        } catch (err) {
+          removeTyping(typingNode);
+          addMessage({
+            role: "bot",
+            text:
+              "No pude conectar con el asistente.\n\n" +
+              "Checklist rápido:\n" +
+              "- La URL del webhook es accesible desde el navegador (no localhost si está publicado)\n" +
+              "- n8n permite CORS para tu dominio (Header 'Access-Control-Allow-Origin')\n" +
+              "- El webhook está en modo 'Production' o 'Test' según corresponda\n\n" +
+              "Detalle: " + ((err && err.message) || "Error desconocido"),
+            meta: "RWS • error"
+          });
+        } finally {
+          chatSend.disabled = false;
+          chatInput.focus();
+        }
+      }
+
+      if (chatToggle) chatToggle.addEventListener("click", () => setChatOpen(!chatbot.classList.contains("open")));
+      if (chatClose) chatClose.addEventListener("click", () => setChatOpen(false));
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && chatbot.classList.contains("open")) setChatOpen(false); });
+      if (chatSend) chatSend.addEventListener("click", handleSend);
+      if (chatInput) chatInput.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+      if (location.hash === "#chat") setChatOpen(true);
+    })();
+  </script>
+</body>
+</html>
